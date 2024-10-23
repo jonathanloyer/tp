@@ -1,0 +1,16 @@
+{% extends "layout.html.twig" %}
+{% block main %}
+	<h1>
+		Page de contact
+	</h1>
+	<form method="POST" action="/todos/traitement">
+		
+		<textarea name="nom">Entrez le nom de la liste</textarea>
+		<button class="button">
+			Ajouter la liste des taches
+		</button>
+		{% if success is defined %}
+			<p>{{message}}</p>
+		{% endif %}
+	</form>
+{% endblock %}
