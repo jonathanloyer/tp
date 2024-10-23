@@ -2,11 +2,10 @@
 
 namespace App\Entity;
 
+use App\Repository\TacheRepository;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\TachesRepository;
 
-#[ORM\Entity(repositoryClass: TachesRepository::class)]
-
+#[ORM\Entity(repositoryClass: TacheRepository::class)]
 class Taches
 {
     #[ORM\Id]
@@ -15,85 +14,52 @@ class Taches
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $nom = null;
+    private ?string $title = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column]
     private ?bool $isFinished = false;
 
-    #[ORM\ManyToOne(targetEntity: TodoList::class, inversedBy: 'taches')]
+    #[ORM\ManyToOne(targetEntity: ListTaches::class, inversedBy: "taches")]
+    private $listTache;
 
-    private $todo;
-
-
-
-
-
-
-
-    /**
-     * Get the value of id
-     */
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    /**
-     * Get the value of nom
-     */
-    public function getNom()
+    public function getTitle()
     {
-        return $this->nom;
+        return $this->title;
     }
 
-    /**
-     * Set the value of nom
-     *
-     * @return  self
-     */
-    public function setNom(?string $nom): self
+    public function setTitle($title)
     {
-        $this->nom = $nom;
+        $this->title = $title;
 
         return $this;
     }
 
-    /**
-     * Get the value of isFinished
-     */
     public function getIsFinished()
     {
         return $this->isFinished;
     }
 
-    /**
-     * Set the value of isFinished
-     *
-     * @return  self
-     */
-    public function setIsFinished(?bool $isFinished): self
+    public function setIsFinished($isFinished)
     {
         $this->isFinished = $isFinished;
 
         return $this;
     }
 
-    /**
-     * Get the value of todo
-     */
-    public function getTodo()
+
+    public function getListTache()
     {
-        return $this->todo;
+        return $this->listTache;
     }
 
-    /**
-     * Set the value of todo
-     *
-     * @return  self
-     */
-    public function setTodo(?TodoList $todo): self
+    public function setListTache($listTache)
     {
-        $this->todo = $todo;
+        $this->listTache = $listTache;
 
         return $this;
     }

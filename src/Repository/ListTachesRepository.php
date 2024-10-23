@@ -3,26 +3,25 @@
 namespace App\Repository;
 
 use App\Entity\ListTaches;
-use App\Entity\Taches;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-class TacheRepository extends ServiceEntityRepository
+class ListTachesRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $doctrine)
     {
-        parent::__construct($doctrine, Taches::class);
+        parent::__construct($doctrine, ListTaches::class);
     }
 
     // Methode pour enregistrer un Message dans la BDD
-    public function sauvegarder(Taches $nouvelleTache, ?bool $isSave)
+    public function sauvegarder(ListTaches $nouvelleListe, ?bool $isSave)
     {
         // Créer la requete SQL
-        $this->getEntityManager()->persist($nouvelleTache);
+        $this->getEntityManager()->persist($nouvelleListe);
         if ($isSave) {
             // Execute la requete
             $this->getEntityManager()->flush();
         }
-        return $nouvelleTache;
+        return $nouvelleListe;
     }
 }

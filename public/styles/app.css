@@ -89,3 +89,15 @@ input, textarea{
 }
 
 
+list-tache-container{
+    display: flex;
+    gap: 20px;
+    padding-top: 50px;
+}
+
+list-card{
+    width: 30%;
+    border: 1px solid white;
+    padding: 1em;
+    border-radius: 10%;
+}
