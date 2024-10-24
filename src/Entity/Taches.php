@@ -39,7 +39,7 @@ class Taches
         return $this;
     }
 
-    public function getIsFinished()
+    public function isFinished()
     {
         return $this->isFinished;
     }

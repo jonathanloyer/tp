@@ -133,3 +133,23 @@ ol {
     background-color: transparent;
     border: none;
 }
+.finished{
+    color: green;
+}
+.unfinished{
+    color: red;
+}
+.terminer{
+    width: 25%;
+}
+
+.tache{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.tache-button{
+    background-color: none;
+    width: auto;
+}

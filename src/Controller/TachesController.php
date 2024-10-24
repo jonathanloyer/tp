@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\ListTaches;
 use App\Entity\Taches;
 use App\Repository\ListTachesRepository;
+use App\Repository\TacheRepository;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -64,19 +65,33 @@ class TachesController extends AbstractController
 
         return $this->redirectToRoute('taches');
     }
+
+    #[Route("/taches/finish/{tache_id}", name: "tache.finish", methods: ["GET"])]
+    function termineTache($tache_id, TacheRepository $repo)
+    {
+        // Récupérer la tache depuis la DB en utilisant
+        $tache = $repo->find($tache_id);
+
+        // Vérifiez si elle exiiste
+        if (!$tache) {
+            return $this->redirectToRoute('taches');
+        }
+
+        // Toggle: Inverseur de boolean
+        $tache->setIsFinished(!$tache->isFinished());
+        // $tache->setIsFinished(!$tache->isFinished()); ce qui veut dire que $tache prend la methode isFinished dans entity/Taches puis en paramétre !true qui donnera false et si !false nous donnera true.
+
+
+        // Enregistrer la tache dans la DB
+        $repo->sauvegarder($tache, true);
+
+        // Rediriger vers la page todo list
+        return $this->redirectToRoute('taches');
+    }
+
     // Exercice:
     // 1. Afficher les tache non términée en rouge, et le tache terminée en vert.
-    #[Route("/taches/isfinished/{list_id}", name: "tache.isfinished", methods: ["GET"])]
-    function terminer(Request $req, ListTachesRepository $repository) 
-    {
-        $isFinished = $req->query->get('isFinished'); // Utiliser query pour GET
-    
-        if ($isFinished === "false") {
-            return $this->json(['color' => 'red']);
-        } else {
-            return $this->json(['color' => 'green']);
-        }
-    }
+
     // 2. Ajouter un bouton pour terminée/ou remettre une tache.
 }
 
