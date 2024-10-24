@@ -34,7 +34,7 @@ class TachesController extends AbstractController
 
         return $this->redirectToRoute("taches");
     }
-    #[Route("/tache/create/{list_id}", name: "tache.create", methods: ["POST"])]
+    #[Route("/taches/create/{list_id}", name: "tache.create", methods: ["POST"])]
     function createTache($list_id, ListTachesRepository $repo, Request $req)
     {
         $listTache = $repo->find($list_id);
@@ -55,15 +55,29 @@ class TachesController extends AbstractController
 
         return $this->redirectToRoute('taches');
     }
-    #[Route("/tache/delete/{list_id}", name: "tache.delete", methods: ["GET"])]
+    #[Route("/taches/delete/{list_id}", name: "tache.delete", methods: ["GET"])]
     function supprimerTaches($list_id, ListTachesRepository $repo)
     {
-        $listeTache = $repo->find($list_id);
+        $listTache = $repo->find($list_id);
 
-        $repo->supprimer($listeTache);
+        $repo->supprimer($listTache);
 
         return $this->redirectToRoute('taches');
     }
+    // Exercice:
+    // 1. Afficher les tache non términée en rouge, et le tache terminée en vert.
+    #[Route("/taches/isfinished/{list_id}", name: "tache.isfinished", methods: ["GET"])]
+    function terminer(Request $req, ListTachesRepository $repository) 
+    {
+        $isFinished = $req->query->get('isFinished'); // Utiliser query pour GET
+    
+        if ($isFinished === "false") {
+            return $this->json(['color' => 'red']);
+        } else {
+            return $this->json(['color' => 'green']);
+        }
+    }
+    // 2. Ajouter un bouton pour terminée/ou remettre une tache.
 }
 
 // Entity: Representation De la table de la DB
