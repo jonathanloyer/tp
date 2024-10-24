@@ -20,7 +20,20 @@ class TachesController extends AbstractController
         // Les envoyer a la vue
         return $this->render('taches.html.twig', ['listTache' => $listeTache]);
     }
+    #[Route("/taches/create", name: "taches.create", methods: ["POST"])]
+    function createListeTaches(Request $req, ListTachesRepository $repo)
+    {
 
+        // Récuperer les donnée de la requete
+        $nomListe = $req->request->get('nom');
+
+        $nouvelleListeTaches = new ListTaches();
+        $nouvelleListeTaches->setTitle($nomListe);
+        $nouvelleListeTaches->setDate(new DateTime());
+        $repo->sauvegarder($nouvelleListeTaches, true);
+
+        return $this->redirectToRoute("taches");
+    }
     #[Route("/tache/create/{list_id}", name: "tache.create", methods: ["POST"])]
     function createTache($list_id, ListTachesRepository $repo, Request $req)
     {
@@ -39,6 +52,15 @@ class TachesController extends AbstractController
         $listTache->ajouteTache($nouvelTache);
         // Enregistrer la liste
         $repo->sauvegarder($listTache, true);
+
+        return $this->redirectToRoute('taches');
+    }
+    #[Route("/tache/delete/{list_id}", name: "tache.delete", methods: ["GET"])]
+    function supprimerTaches($list_id, ListTachesRepository $repo)
+    {
+        $listeTache = $repo->find($list_id);
+
+        $repo->supprimer($listeTache);
 
         return $this->redirectToRoute('taches');
     }

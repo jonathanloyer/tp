@@ -10,9 +10,11 @@ body {
     background-color: rgb(33, 33, 33);
     color: white
 }
-h1{
+
+h1 {
     text-align: center;
 }
+
 img {
     width: 100%;
 }
@@ -21,7 +23,7 @@ img {
     background-color: royalblue;
     padding: 0.6em;
     border-radius: 0.2em;
-    color:whitesmoke;
+    color: whitesmoke;
     border: none;
 }
 
@@ -60,7 +62,7 @@ nav ul {
     gap: 0.5em
 }
 
-form{
+form {
     display: flex;
     flex-direction: column;
     gap: 0.8em;
@@ -68,7 +70,9 @@ form{
     max-width: 500px;
     margin: auto;
 }
-input, textarea{
+
+input,
+textarea {
     padding: 0.8em;
     display: block;
     width: 100%;
@@ -79,8 +83,7 @@ input, textarea{
 
 }
 
-.active
-{
+.active {
     border-bottom: 1px solid gray;
 }
 
@@ -88,16 +91,45 @@ input, textarea{
     display: flex;
 }
 
-
-list-tache-container{
+.list-tache-container {
     display: flex;
     gap: 20px;
     padding-top: 50px;
+    flex-wrap: wrap;
 }
 
-list-card{
+.list-card {
     width: 30%;
+    min-width: 200px;
     border: 1px solid white;
     padding: 1em;
     border-radius: 10%;
+}
+
+ol {
+    padding: 0 10px;
+}
+
+.delete-list {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    fill: red;
+    cursor: pointer;
+}
+
+.delete-list:hover{
+    scale:1.2;
+    transition: all 0.2s ease-in-out;
+}
+
+.list-card {
+    position: relative;
+}
+
+.invisible-button{
+    background-color: transparent;
+    border: none;
 }
