@@ -2,10 +2,10 @@
 
 namespace App\Entity;
 
-use App\Repository\TacheRepository;
+use App\Repository\TachesRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: TacheRepository::class)]
+#[ORM\Entity(repositoryClass: TachesRepository::class)]
 class Taches
 {
     #[ORM\Id]

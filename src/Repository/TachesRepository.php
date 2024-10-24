@@ -7,7 +7,7 @@ use App\Entity\Taches;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-class TacheRepository extends ServiceEntityRepository
+class TachesRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $doctrine)
     {

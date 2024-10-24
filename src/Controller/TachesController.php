@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\ListTaches;
 use App\Entity\Taches;
 use App\Repository\ListTachesRepository;
-use App\Repository\TacheRepository;
+use App\Repository\TachesRepository;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -67,7 +67,7 @@ class TachesController extends AbstractController
     }
 
     #[Route("/taches/finish/{tache_id}", name: "tache.finish", methods: ["GET"])]
-    function termineTache($tache_id, TacheRepository $repo)
+    function termineTache($tache_id, TachesRepository $repo)
     {
         // Récupérer la tache depuis la DB en utilisant
         $tache = $repo->find($tache_id);
