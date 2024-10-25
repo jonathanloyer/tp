@@ -1,0 +1,22 @@
+{%extends "layout.html.twig"%}
+
+{% block main %}
+
+{{form_start(formulaire)}}
+{{form_label(formulaire.nom)}}
+{{form_widget(formulaire.nom,{attr:{class:"maClass"}})}}
+<div class="error">
+{{form_errors(formulaire.nom)}}
+
+</div>
+{{form_label(formulaire.prenom)}}
+{{form_widget(formulaire.prenom,{attr:{class:"maClass"}})}}
+<div class="error">
+{{form_errors(formulaire.prenom)}}
+
+</div>
+
+{{form_end(formulaire)}}
+
+
+{% endblock %}

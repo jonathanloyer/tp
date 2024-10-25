@@ -78,7 +78,7 @@ class TachesController extends AbstractController
         }
 
         // Toggle: Inverseur de boolean
-        $tache->setIsFinished(!$tache->isFinished());
+        $tache->setIsFinished(!$tache->isFinished() );
         // $tache->setIsFinished(!$tache->isFinished()); ce qui veut dire que $tache prend la methode isFinished dans entity/Taches puis en paramétre !true qui donnera false et si !false nous donnera true.
 
 
