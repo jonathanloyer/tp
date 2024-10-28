@@ -22,7 +22,7 @@ class UserController extends AbstractController
         if($this->isGranted(('IS_AUTHENTICATED_FULLY'))){
             return $this->redirectToRoute('profil');
         }
-        
+
         // creer l'entité user
         $user = new User();
 
@@ -72,6 +72,22 @@ class UserController extends AbstractController
         
             return $this->render('profil.html.twig');
     }
+    #[Route("/admin", name: "admin", methods: ["GET", 'POST'])]
+    public function admin()
+    {
+        // si l'utilisateur n'est pas connecté on le redirigie vers la page connexion
+        if($this->isGranted('IS_AUTHENTICATED_FULLY')){
+            return $this->redirectToRoute('connexion');
+        }
+
+        // si  l'utilisateur n'est pas admin on le redirige vers la page profil
+        if($this->isGranted('ROLE_USER')){
+            return $this->redirectToRoute('profil');
+        }
+
+        return $this->render('admin.html.twig');
+    }
+
     #[Route('/logout', name: 'logout')]
     public function logout()
     {}

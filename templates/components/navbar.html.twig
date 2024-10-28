@@ -11,6 +11,10 @@
 		<a href={{path('profil')}} class={{route == "/profil" ? "active" : ""}}>
 			Profile
 		</a>
+		{% if is_granted('ROLE_ADMIN') %}
+			<a href={{path('admin')}}>Administration</a>
+		{% endif %}
+
 		<a href={{path('logout')}} class={{route == "/logout" ? "active" : ""}}>
 			Déconnexion
 		</a>
@@ -21,5 +25,5 @@
 		<a href={{path('inscription')}} class={{route == "/inscription" ? "active" : ""}}>
 			Inscription
 		</a>
-{% endif %}
-	</nav>
+	{% endif %}
+</nav>
