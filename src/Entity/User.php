@@ -1,102 +1,95 @@
 <?php
-
+// src/Entity/User.php
 namespace App\Entity;
 
-class User
-{
-    private ?int $id;
-    private ?string $email;
-    private ?string $nom;
-    private ?string $prenom;
-    private $genre;
+use App\Repository\UserRepository;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
-    
+#[ORM\Entity(repositoryClass: UserRepository::class)]
+class User implements UserInterface, PasswordAuthenticatedUserInterface {
+  #[ORM\Id]
+  #[ORM\GeneratedValue]
+  #[ORM\Column(type: 'integer')]
+  private int $id;
 
-    /**
-     * Get the value of nom
-     */ 
-    public function getNom()
-    {
-        return $this->nom;
-    }
+  #[ORM\Column(type: 'string', length: 180, unique: true)]
+  private ?string $email;
 
-    /**
-     * Set the value of nom
-     *
-     * @return  self
-     */ 
-    public function setNom($nom)
-    {
-        $this->nom = $nom;
+  #[ORM\Column(type: 'json')]
+  private array $roles = [];
 
-        return $this;
-    }
+  #[ORM\Column(type: 'string')]
+  private string $password;
 
-    /**
-     * Get the value of prenom
-     */ 
-    public function getPrenom()
-    {
-        return $this->prenom;
-    }
+  public function getId(): ?int {
+    return $this->id;
+  }
 
-    /**
-     * Set the value of prenom
-     *
-     * @return  self
-     */ 
-    public function setPrenom($prenom)
-    {
-        $this->prenom = $prenom;
+  public function getEmail(): ?string {
+    return $this->email;
+  }
 
-        return $this;
-    }
+  public function setEmail(string $email): self {
+    $this->email = $email;
 
-    /**
-     * Get the value of genre
-     */ 
-    public function getGenre()
-    {
-        return $this->genre;
-    }
+    return $this;
+  }
 
-    /**
-     * Set the value of genre
-     *
-     * @return  self
-     */ 
-    public function setGenre($genre)
-    {
-        $this->genre = $genre;
+  /**
+   * Représentation publique de User (e.g. a username, an email, etc.)
+   *
+   * @see UserInterface
+   */
+  public function getUserIdentifier(): string {
+    return (string) $this->email;
+  }
 
-        return $this;
-    }
+  /**
+   * @see UserInterface
+   */
+  public function getRoles(): array {
+    $roles = $this->roles;
+    // Yous les utilisateur on au moin le ROLE_USER
+    $roles[] = 'ROLE_USER';
 
-    /**
-     * Get the value of id
-     */ 
-    public function getId()
-    {
-        return $this->id;
-    }
+    return array_unique($roles);
+  }
 
-    /**
-     * Get the value of email
-     */ 
-    public function getEmail()
-    {
-        return $this->email;
-    }
+  public function setRoles(array $roles): self {
+    $this->roles = $roles;
 
-    /**
-     * Set the value of email
-     *
-     * @return  self
-     */ 
-    public function setEmail($email)
-    {
-        $this->email = $email;
+    return $this;
+  }
 
-        return $this;
-    }
+  /**
+   * @see PasswordAuthenticatedUserInterface
+   */
+  public function getPassword(): string {
+    return $this->password;
+  }
+
+  public function setPassword(string $password): self {
+    $this->password = $password;
+
+    return $this;
+  }
+
+  /**
+   * Retourne le hashage: Seulement si vous n'utiliser pas les hasheurs (e.g. bcrypt or sodium) in your security.yaml.
+   *
+   * @see UserInterface
+   */
+  public function getSalt(): ?string {
+    return null;
+  }
+
+  /**
+   * @see UserInterface
+   */
+  public function eraseCredentials(): void {
+    // Si vous enregistrer temporairement des données sensible, vous pouvez les éffacer
+    // $this->plainPassword = null;
+  }
 }
