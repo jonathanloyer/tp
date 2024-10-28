@@ -6,10 +6,20 @@
 	<a href={{path('contact')}} class={{route == "/contact" ? "active" : ""}}>
 		Contact
 	</a>
-	<a href={{path('taches')}} class={{route == "/taches" ? "active" : ""}}>
-		taches
-	</a>
-	<a href={{path('note')}} class={{route == "/note" ? "active" : ""}}>
-		Note
-	</a>
-</nav>
+
+	{% if app.user %}
+		<a href={{path('profil')}} class={{route == "/profil" ? "active" : ""}}>
+			Profile
+		</a>
+		<a href={{path('logout')}} class={{route == "/logout" ? "active" : ""}}>
+			Déconnexion
+		</a>
+	{% else %}
+		<a href={{path('connexion')}} class={{route == "/connexion" ? "active" : ""}}>
+			Connexion
+		</a>
+		<a href={{path('inscription')}} class={{route == "/inscription" ? "active" : ""}}>
+			Inscription
+		</a>
+{% endif %}
+	</nav>

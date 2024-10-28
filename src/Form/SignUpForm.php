@@ -6,11 +6,12 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class InscriptionForm extends AbstractType
+class SignUpForm extends AbstractType
 {
     function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -27,44 +28,23 @@ class InscriptionForm extends AbstractType
             )
 
             ->add(
-                'nom',
-                TextType::class,
-                ["label" => "Nom de famille", 'attr' => ['placeholder' => 'Entrez vôtre nom'],
+                'password',
+                PasswordType::class,
+                ["label" => "mot de passe ", 'attr' => ['placeholder' => 'Entrez vôtre mot de passe'],
                 "constraints" => [
-                    new Assert\NotBlank(['message'=> 'Nom obligatoire']),
+                    new Assert\NotBlank(['message'=> 'mot de passe obligatoire']),
                     new Assert\Length(
                         [
-                            "min"=> 2,
+                            "min"=> 6,
                             "max"=> 255,
-                            'minMessage' => "Le nom est trop court",
-                            'maxMessage' => "Le nom est trop long"
+                            'minMessage' => "Le mot de passe est trop court",
+                            'maxMessage' => "Le mot de passe est trop long"
 
                         ]
                     )
                 ]]
             )
-            ->add(
-                'prenom',
-                TextType::class,
-                ['attr' => ['placeholder' => 'Entrez vôtre prénom'],"constraints" => [
-                    new Assert\NotBlank(['message'=> 'Nom obligatoire']),
-                    new Assert\Length(
-                        [
-                            "min"=> 2,
-                            "max"=> 255,
-                            'minMessage' => "Le nom est trop court",
-                            'maxMessage' => "Le nom est trop long"
-                        ]
-                    )
-
-                        ]]
-            )
-
-            ->add(
-                'genre',
-                ChoiceType::class,
-                ['choices' => ['Masculin' => 'm', 'Feminin' => 'f']]
-            )
+            
 
             ->add(
                 'Envoyer',
